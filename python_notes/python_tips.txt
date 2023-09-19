@@ -1,0 +1,140 @@
+
+0. Difference from low-level language.
+- A program of the low-level language is a constitution of several programs(object files).
+    => Each program has its own bss, data, rdata sections... If it is not declared as "extrenal" or "globl",
+        it cannot be shared between programs.
+
+- Python or high level program is runned on the "Virtual Machine" or "Interpreter",
+    which is one program.
+
+    => All components shares the data, bss sections. This memory regions are preserved for the VM or Int.
+    => What we can use is only Heap region. Therefore, all data is actually accessible from anywhere.
+    => To enable the encapsulation or security, they can't help with using "preprocessor" with scope concept.
+
+    * Such high-level language can be divided into one way.
+    - It interprets "Sentence" with the predefined several low-level logics.
+        => There is freedom to add your code into predefined logics.
+    - High-level language define the block, called "object", in the interpreting codes.
+        => For java, no function exists(only class).
+        => For python, function, class, instance, everything is object.
+
+            * Object == Unit of Interpretation (before in use or manipulation).
+
+        => Difference of python from other high-levels is it stores "preprocessor"-time information
+          in the program (dynamically changable).
+            - The jump locations or variable location is retrieved dynamically through this meta data.
+
+
+1. Static objects
+- There is nothing like static objects in python.
+    To use the static methods, you need to innitialize the objects as global
+
+- Static objects can be divided into three things
+    1. Function
+    2. Global Object
+    3. Class Methods
+    4. Static Methods
+    
+    * Those methods are divided into Scope
+        - Function and static methods stores the states in global variables.
+        - Global objects stores with-in itself
+        - Class objects stores as class var.
+
+    * Class method like factory or getter method are frequently used, since it can be 
+        used without initialization. 
+        (When it executes, it premises the user initialized it.)
+
+    ** Decorator "@dec_name" is an instruction to pre-processor of python interpreter.
+        - By default, python preprocessor inserts following for 
+            1. Nothing for function
+            2. Instance for method.
+            3. Class name for "@classmethod" keyword
+            4. None for "@staticmethod" keyword
+
+            
+- Singleton in Python
+    1. __new__(cls) : Implicit class method in initialization of object.
+    ex)
+    class SingletonClass(Object):
+        def __new__(cls):
+            if not hasattr(cls, "instance"):
+                cls.instance = super(SingletonClass, cls).__new__(cls)
+            return cls.instance
+
+    singleton = SingletonClass()
+    singleton2 = SingletonClass()
+    # singleton == singleton2
+
+
+    2. method 
+    ex)
+    class SingletonClass(object):
+        def __init__(self):
+            raise RuntimeError("call instance() instead")
+
+        @classmethod
+        def instance(cls):
+            if cls._instance is None:
+                print("creating new instance")
+                cls._instance = cls.__new__(cls)
+            return cls._instance
+
+
+    singleton1 = SingletonClass.instance()
+    singleton2 = SingletonClass.instance()
+
+    #singleton1 == singleton2
+
+
+    3. Mono-state instance (Shared __dict__)
+    class BorgSingleton(object):
+        shared_state = {}
+        def __init__(self):
+            self.__dict__ = self.shared_states
+
+    singleton1 = BorgSingleton()
+    singleton1.var = 2
+    singleton1.var2 = "name"
+
+    singleton2 = BorgSingleton()
+
+    # singleton1 != singleton2
+    # singleton1.var == singleton2.var
+    # singleton1.var2 == singleton2.var2
+
+
+
+2. Object Structure in Python 
+- Object is kinds of a block, which defines the scope of visibility, or stack frame.
+
+- Each stack frame is conveyed with implicit parameter.
+    Object : for all object, it has its own meta-data structure called object.
+
+- The kinds of the objects is defined what is stored in this object parameter.
+  ( The data in object structure is retrieved through the "__dict__" dictionary.)
+
+    * Callable
+    - Typically contains "__code__", "__closure__", "__globals__"
+    - "__code__" contains "bytecodes"
+
+    * Module
+    - Contians "__file__" : The path name of file, which is loaded 
+
+    * Class
+
+    * Instance
+
+    *
+
+- Other component of Object structure.
+    => "id", "__bases__", "__annotations__", "__module__"...
+    => "__builtin__"
+    => "__dict__" : The dictionary containing the class's namespace
+        * "__dir__", by default, prints the "__dict__", if defined.
+           If not, it prints all attriubutes.
+
+
+
+
+
+
