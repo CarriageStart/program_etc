@@ -8,8 +8,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Set EventListenter")
 
         button = QPushButton("Press Me!")
-        button.setCheckable(True)                           # 
-        button.clicked.connect(self.methodInClicked) #
+        button.setCheckable(True)               # Let the button widget store Check state
+            # Implicit(built-in) event handling of button : Change the color and toggle state
+        button.clicked.connect(self.methodInClicked) # Slot for "Click event" is hoolked.
 
         self.setCentralWidget(button)
 
@@ -17,13 +18,15 @@ class MainWindow(QMainWindow):
     def methodInClicked(self):
         print("Clicked!")
     
-
-if __name__ == "__main__" :
+def main() -> None :
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
 
     app.exec()
+
+if __name__ == "__main__" :
+    main()
 
 
 

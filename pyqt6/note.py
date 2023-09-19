@@ -55,7 +55,13 @@ Note Starts : 2023-09-18
         and features.
     - Any widget can be windows.
     - Most widget has the corresponding built-in slots.
+        * For example, the button is toggled when clicked.
+            => event handling : Change toggle and how it looks 
     - Each widget can have several slots.
+
+    - Widget is receive callbacks for event handling.
+        => The state of widget or the data of event can be retrieved via
+          getters of widget(built-in state) or callbacks.
 
 0. QMainWindow
     - Pre-made widget with featurefs for laout and additional components(toolbars, menus, ...).
