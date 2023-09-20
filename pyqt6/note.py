@@ -42,10 +42,78 @@ Note Starts : 2023-09-18
             Hook   : Register the slot to the widget.
 
         * Note, any function or method can be a slot.
+        * Event loop checks the sequential events even in duration-check event.
+            (The event is issued heurestically)
+            ex) double click event == press -> release -> double click -> release
+            ex) double click event == press -> move -> release -> double click -> release
+
+        * Built-in handler does implicitly check the new state
+            ex) 
+            For double click event,
+                press -> release -> double click -> release
+            ,or  press -> release -> double click -> press -> release
+            case 1 :
+            def mouseDoubleClickEvent(self, e):
+                print ("Double Click Issued")
+
+            => After DoubleClick event, it could not check the press state
+                (Logic follows : press -> release -> double click -> release)
+                
+            case 2 :
+            def mouseDoubleClickEvent(self, e):
+                print ("Double Click Issued")
+                super().mouseDoubleClickEvent(e)
+
+            => After DoubleClick event, it check the press event in super()
+              and mousePressEvent(self, e) is issued.
+                (Logic follows : press -> release -> double click -> ->press -> release)
+
+            case 3 :
+            def mouseDoubleClickEvent(self, e):
+                super().mouseDoubleClickEvent(e)
+                print ("Double Click Issued")
+
+            => After DoubleClick event, it check the press event in super()
+              and mousePressEvent(self, e) is issued. But, the handling(print) is
+              executed after mousePressEvent is finished.
+                (Logic follows : press -> release -> double click -> ->press -> release)
+
 
 
     - There is hierarchy in the event handler, and each handler 
      accept or propagate the event.
+
+
+* Events
+    - Event is a data structure, or object that QApplication created from the system interupt.
+        ex) Event handler for mouse events (QMouseEvent)
+        Handler : .mouseMoveEvent, .mousePressEvent, .mouseReleaseEvent, .mouseDoubleClickEvent
+        Event : QMouseEvent
+            * QMouseEvent Getter
+            QMouseEvent.button()            Retrieve state of the current button event
+            QMouseEvent.buttons()           Retrieve button state of the current mouse
+            QMouseEvent.position()          Retrieve position state of the current mouse
+
+            * QMouseEvent states            value (bit ptn) 
+            Qt.MouseButton.NoButton         0 (000)         => Event not related to buttonpress
+            Qt.MouseButton.LeftButton       1 (001)
+            Qt.MouseButton.RightButton      2 (010)
+            Qt.MouseButton.MiddleButton     4 (100)
+
+        ex) QContextMenuEvent 
+          => Event triggered when the window is right-clicked.
+          => Event when the context menu is about to be shown.
+            
+        Handler : .contextMenuEvent
+    
+    - Layout forwarding (Widget Hierarchy)
+        : The event is treated backward of Widget Hierarchy.(From childs to parent)
+        => Upper widget of the hierarchy can be retreived with ".parent()".
+        
+        
+
+
+* Action (QAction)
 
 
 * Layout
@@ -63,10 +131,18 @@ Note Starts : 2023-09-18
         => The state of widget or the data of event can be retrieved via
           getters of widget(built-in state) or callbacks.
 
-0. QMainWindow
-    - Pre-made widget with featurefs for laout and additional components(toolbars, menus, ...).
+    0. QWidget
+        - Polymorphism Parent
 
-1. QWidget
+    1. QMainWindow
+        - Pre-made widget with features for layout and additional components(toolbars, menus, ...).
+
+    2. QLabel
+
+    3. QTextEdit
+
+    4. QMenu(Parent)
+
 
 
 
