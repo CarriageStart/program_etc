@@ -138,10 +138,55 @@ Note Starts : 2023-09-18
         - Pre-made widget with features for layout and additional components(toolbars, menus, ...).
 
     2. QLabel
+        - Text content, text style(font, alignment), Image
+            * Text style is stored in "QWidget.font()" -> QFont structure
+                => Always alter it, do not make new one.
 
-    3. QTextEdit
+        - QLabel also can show image. (QLabel as layout for QPixmap)
+            ex) qlabel.setPixmap(QPixmap("otje.jpg"))
+    3. QPixmap
 
-    4. QMenu(Parent)
+    4. QCheckBox
+        - Basically binary state 
+            0 : Qt.CheckState.Unchecked
+            2 : Qt.CheckState.Checked
+        - Often tri state   (widget.setTristate(True))
+            0 : Qt.CheckState.Unchecked
+            1 : Qt.CheckState.PartiallyChecked
+            2 : Qt.CheckState.Checked
+
+    5. QComboBox
+        - Adding items : widget.addItems(list)
+        - Typical events :
+            1. widget.currentIndexChanged   : When currently selected item is updated, give index.
+            2. widget.currentTextChanged    : When the shown label is changed, give the label.
+                => Two events are different when the comboBox is editable. (widget.setEditable(True))
+                (2 are issued every typing of user , 1 is issued only when user entered new item)
+                (Insert policy can be changable)
+        - 
+
+    6. QListWidget
+        - Identical to QComboBox, but currentIndexChanged gives QListWidgetItem.
+        - One line text UI.
+        - Additional event handler should be noted.
+            1. widget.sectionChanged    : When the dragged items is changed.
+            2. widget.returnChanged     : When the "enter" key is enterred.
+            3. widget.text_changed      : text is changed.
+            4. widget.text_edited       : User starts to edit the text.(Time limit)
+        - Inputmask (widget.setInputMask("000-0000-0000"))
+
+    7. QSpinbox / QDoubleSpinbox
+        - Number increasing with prefix, suffix, and step setting.
+        - Range confine the values
+        - It also acts with text input (widget.lineEdit())
+            => Disable text input (widget.lineEdit().setReadOnly(True))
+
+    8. QSlider
+    9. QDial
+
+    10. QTextEdit
+
+    11. QMenu(Parent)
 
 
 
