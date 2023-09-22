@@ -111,14 +111,32 @@ Note Starts : 2023-09-18
         => Upper widget of the hierarchy can be retreived with ".parent()".
         
         
-
-
 * Action (QAction)
 
 
+
 * Layout
+    - Four basic layouts : QHBoxLayout, QVBoxLayout, QGridLayout, QStackedLayout
+    - QtCore.QObject[Core]    ->  QtWidgets.QLayout[Poly]   (-> QtWidgets.QBoxLayout -> QtWidgets.QVBoxLayout)
+      QtWidgets.QObject[data] ->
+
+    - Layout receives widget via 
+        layout.addLayout        (For QLayout : nested layout)
+        layout.addWidget        (For QWidget)
+
+    - Layout has typically : Spcing of itself from its parent(parent holder)
+                           : Spcing between its widgets.
+
+
+
+* Color
+
+
 
 * Widget Objects 
+    QtCore.QObject      -> QtWidgets.QWidget [Poly]
+    QtGui.QPaintDevice  ->
+
     - Objects that contains the User-Friendly rendering information
         and features.
     - Any widget can be windows.
@@ -130,6 +148,9 @@ Note Starts : 2023-09-18
     - Widget is receive callbacks for event handling.
         => The state of widget or the data of event can be retrieved via
           getters of widget(built-in state) or callbacks.
+
+    - Widget also has getter methodes that return the structure for style settings.
+        - widget.palette() -> PyQt6.QtGui.QPalette
 
     0. QWidget
         - Polymorphism Parent
