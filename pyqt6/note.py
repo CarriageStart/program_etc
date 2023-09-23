@@ -112,6 +112,8 @@ Note Starts : 2023-09-18
         
         
 * Action (QAction)
+    - QAction("Name", QObject)
+    - QAction is a class that provides customized user interfaces.
 
 
 
