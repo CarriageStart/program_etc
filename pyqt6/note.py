@@ -159,6 +159,7 @@ Note Starts : 2023-09-18
 
     1. QMainWindow
         - Pre-made widget with features for layout and additional components(toolbars, menus, ...).
+        - To use toolbar and menus it is recomended to make a new QMainWindow.
 
     2. QLabel
         - Text content, text style(font, alignment), Image
@@ -205,11 +206,23 @@ Note Starts : 2023-09-18
             => Disable text input (widget.lineEdit().setReadOnly(True))
 
     8. QSlider
-    9. QDial
+    9. QDialog  : QDialog(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
+                    => QDialog("Kinds of default buttons to add")
+        - Pop-up window
+        - Dialog has its event listener(loop). When "Ok" or "cancel" is pressed, it terminate and 
+            return the corresponding value for each button. For other buttons, it keeps the loop.
+            ex)
+            answer = myDialog.exec()
+            if answer:
+                print("Ok")
+            else:
+                print("Cancel")
+        - QMessageBox : Dialog box specific for information, warning, question...
 
     10. QTextEdit
 
     11. QMenu(Parent)
+        
 
 
 
