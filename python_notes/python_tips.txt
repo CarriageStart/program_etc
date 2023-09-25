@@ -134,6 +134,16 @@
            If not, it prints all attriubutes.
 
 
+- Lambda as Function Wrapper 
+    ex)
+    def func(x, y):                 # Two parameter Function
+        pass
+
+    func2 = lambda y: func(1, y)    # One parameter Function
+
+    def func3(y):                   # One parameter Function
+        return func(1, y)
+    
 
 
 

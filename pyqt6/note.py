@@ -161,6 +161,11 @@ Note Starts : 2023-09-18
         - Pre-made widget with features for layout and additional components(toolbars, menus, ...).
         - To use toolbar and menus it is recomended to make a new QMainWindow.
 
+        - To open a new window, you can use qwidget.show().
+            => To keep new window open, the Window should be dangled to the main window.
+        - "close" state, "hide" state
+
+
     2. QLabel
         - Text content, text style(font, alignment), Image
             * Text style is stored in "QWidget.font()" -> QFont structure
@@ -224,8 +229,14 @@ Note Starts : 2023-09-18
     11. QMenu(Parent)
         
 
+* Ui file
+    - Can be dynamically loaded via PyQt.uic.loadUi("uifile.ui", QObject=None) 
+        => If QObject is none, it returns QObject
+        => If QObject is not none, it registers UI to QObject.
 
 
+    - Can be converted to source code with pyuic6
+        ex) pyuic6 mainwindow.ui -o MainWindow.py
 
 
 
