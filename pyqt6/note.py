@@ -131,7 +131,7 @@ Note Starts : 2023-09-18
 
 
 
-* Color
+* Bulit-in GUI support
 
 
 
@@ -223,6 +223,9 @@ Note Starts : 2023-09-18
             else:
                 print("Cancel")
         - QMessageBox : Dialog box specific for information, warning, question...
+
+        - More builit-in eupports for Font, print, progresss, color, input, file
+            ex) QFontDialog, QPrintDialog, QProgressDialog, QColorDialog, QInputDialog, QFileDialog
 
     10. QTextEdit
 
