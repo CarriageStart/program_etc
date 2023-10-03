@@ -8,7 +8,6 @@
 #include <iostream>
 
 #define MAXLEN 300000
-#define MODULAR 10e9+7
 // Solve the minimum number of coins that adds up to x
 
 const int coins[3] = {11, 7, 5};
@@ -81,17 +80,16 @@ optimized_solve
 
 int count[MAXLEN] = {0,};
 int approx_count[MAXLEN] = {0,};
-void
+int
 count_possibilities
 (int target)
 {
     count[0] = 1;
-    approx_count[0] = count[0] % (int)MODULAR;
+    approx_count[0] %= modular;
     for (int x=1; x<=target; ++x) {
         for (auto c: coins) {
             if (x-c >= 0) {
                 count[x] += count[x-c];
-                approx_count[x] = count[x] % (int)MODULAR;
             }
         }
     }
@@ -112,9 +110,6 @@ main
         fprintf(stderr, "target should be smaller than %d\n", MAXLEN);
         exit(EXIT_FAILURE);
     }
-    count_possibilities(target);
-    printf("All possible combinations : %d\n", count[target]);
-    printf("    Approximately : (%d -7) * 10E7\n", approx_count[target]);
     int option = std::stoi(argv[2]);
     int answer = 0;
     switch (option) {
