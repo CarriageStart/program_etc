@@ -1,0 +1,171 @@
+	.file	"test.cc"
+	.text
+	.section	.rodata
+	.align 4
+	.type	_ZL3INF, @object
+	.size	_ZL3INF, 4
+_ZL3INF:
+	.long	987654321
+	.text
+	.globl	_Z3minii
+	.type	_Z3minii, @function
+_Z3minii:
+.LFB1753:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -4(%rbp)
+	movl	%esi, -8(%rbp)
+	movl	-4(%rbp), %eax
+	cmpl	-8(%rbp), %eax
+	jg	.L2
+	movl	-4(%rbp), %eax
+	jmp	.L3
+.L2:
+	movl	-8(%rbp), %eax
+.L3:
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1753:
+	.size	_Z3minii, .-_Z3minii
+	.section	.rodata
+.LC0:
+	.string	"Current Best : %d\n"
+	.text
+	.globl	_Z5solvei
+	.type	_Z5solvei, @function
+_Z5solvei:
+.LFB1754:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$80, %rsp
+	movl	%edi, -68(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	cmpl	$0, -68(%rbp)
+	jns	.L5
+	movl	$987654321, %eax
+	jmp	.L10
+.L5:
+	cmpl	$0, -68(%rbp)
+	jne	.L7
+	movl	$0, %eax
+	jmp	.L10
+.L7:
+	movl	$987654321, -56(%rbp)
+	movl	$1, -20(%rbp)
+	movl	$3, -16(%rbp)
+	movl	$4, -12(%rbp)
+	leaq	-20(%rbp), %rax
+	movq	%rax, -40(%rbp)
+	movq	-40(%rbp), %rax
+	movq	%rax, -48(%rbp)
+	movq	-40(%rbp), %rax
+	addq	$12, %rax
+	movq	%rax, -32(%rbp)
+	jmp	.L8
+.L9:
+	movq	-48(%rbp), %rax
+	movl	(%rax), %eax
+	movl	%eax, -52(%rbp)
+	movl	-56(%rbp), %eax
+	subl	-52(%rbp), %eax
+	movl	%eax, %edi
+	call	_Z5solvei
+	leal	1(%rax), %edx
+	movl	-56(%rbp), %eax
+	movl	%edx, %esi
+	movl	%eax, %edi
+	call	_Z3minii
+	movl	%eax, -56(%rbp)
+	addq	$4, -48(%rbp)
+.L8:
+	movq	-48(%rbp), %rax
+	cmpq	-32(%rbp), %rax
+	jne	.L9
+	movl	-56(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	-56(%rbp), %eax
+.L10:
+	movq	-8(%rbp), %rdx
+	subq	%fs:40, %rdx
+	je	.L11
+	call	__stack_chk_fail@PLT
+.L11:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1754:
+	.size	_Z5solvei, .-_Z5solvei
+	.section	.rodata
+.LC1:
+	.string	"Target : %d, Answer : %d\n"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB1755:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movl	%edi, -20(%rbp)
+	movq	%rsi, -32(%rbp)
+	movl	$10, -8(%rbp)
+	movl	-8(%rbp), %eax
+	movl	%eax, %edi
+	call	_Z5solvei
+	movl	%eax, -4(%rbp)
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC1(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	$0, %eax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1755:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+	.section	.note.gnu.property,"a"
+	.align 8
+	.long	1f - 0f
+	.long	4f - 1f
+	.long	5
+0:
+	.string	"GNU"
+1:
+	.align 8
+	.long	0xc0000002
+	.long	3f - 2f
+2:
+	.long	0x3
+3:
+	.align 8
+4:
