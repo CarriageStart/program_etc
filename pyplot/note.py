@@ -16,22 +16,21 @@ seaborn as sns
 1. Several Pages
     - plt focuses on the one figure.
     ex)
-        fig1 = plt.figure(1, figsize=(4,3))     # 1 == Figure Id
+        fig1 = plt.figure(1, figsize=(4,3))     # Make Figure 1. If doesn't exist, create one  1 == Figure Id
         # Manipulate fig1 with plt
         plt.plot(x, y, label="plot1")
         plt.title("fig1")                       # Figure 1 title
 
-        fig2 = plt.figure(2, figsize=(4,3))     # 1 == Figure Id
+        fig2 = plt.figure(2, figsize=(4,3))     # 2 == Figure Id
         # Manipulate fig2 with plt
         plt.plot(x, y, label="plot2")
-        plt.title("fig2")                       # Figure 1 title
-        plt.xlabel("x")                       # Figure 1 title
-        plt.xlabel("x")                       # Figure 1 title
+        plt.title("fig2")                       # Figure 2 title
+        plt.xlabel("x")                       # Figure 2 title
+        plt.xlabel("x")                       # Figure 2 title
 
         plt.legend()
 
         plt.show()                              # Draw all figures
-
 
 
 2. Several Section in one page
@@ -53,18 +52,28 @@ seaborn as sns
         plt.show()                              # Draw all figure
 
 
+    ex)
+        fig, (ax1, ax2) = plt.subplots(1, 2)    # Divide the sections in the creation of a figure
+        sns.lineplot(x=year, y=python, label="plot1", ax=ax1)
+        sns.lineplot(x=year, y=python, label="plot2", ax=ax2)
+        plt.show()
+
+
 
 * Graphs
     1. line graph
+        ax1.plot(x, y, label="plot1")
         plt.lineplot(year, python)
         (plt.plot(x,y, label=";;;", marker=";;;", linestyle=";;;", color=";;;"))
         sns.lineplot(x=year, y=python)
 
     2. label 
         plt.plot(x, y, label="plot1")
+        plt.xlabel("how1")
         plt.legend()
 
-        sns.lineplot(x=year, y=python, label="plot2")
+        lp = sns.lineplot(x=year, y=python, label="plot2")
+        lp.set_xlabel("how2")
 
     3. ticks of graph
         - In plt
@@ -125,8 +134,8 @@ seaborn as sns
             * IQR       : The length of box (the same unit of data) => InterQuartile Range
             * Whisker   : data region in the outside of box ,
                 where 
-                    minimum = max (lowest_data, Q3 - 1.5*IQR)
-                    maximum = min (lowest_data, Q1 + 1.5*IQR)
+                    maximum = min (lowest_data, Q3 + 1.5*IQR)
+                    minimum = max (lowest_data, Q1 - 1.5*IQR)
 
                     => Data outside of whisker is represented with points
 
@@ -146,7 +155,7 @@ seaborn as sns
 
         * Correlation btw x and y
             - Calculate the correlation between columns
-            df_corr = df.corr(numeric_only=True)
+            df_corr = df.corr(numeric_only=True)    # Pearson Correlation
                 
 
     11. Hit map
