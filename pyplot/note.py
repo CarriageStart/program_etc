@@ -166,4 +166,27 @@ seaborn as sns
             sns.heatmap(df_corr)
 
 
+ * Seaborn Specifics
+1. sns.pairplot(data, vars=["col1", "col2"], hue="grouping")
+    - Show scatter plot between all columns or columns specified in vars
+    - For the same columns plot, it shows histogram with x:var and y=count
+
+2. sns.jointplot(data, x="col1", y="col2", kind="kde")
+    - Show scatter plot with marginalized histograms of ratio
+        * "kde" : 등고선
+
+3. sns.tsplot(data, x="col1", "col2") - Deprecated
+    - Show line plot with error region
+    ex)
+    def tsplot(ax, data, **kw):
+        x = np.arange(data.shape[1])    # Number of Columns
+        est = np.mean(data, axis=0)
+        sd = np.std(data, axis=0)
+        cis = (est-sd, est+sd)
+        ax.fill_between(x, cis[0], cis[1], alpha=0.2, **kw)
+        ax.plot(x, est, **kw)
+        ax.margins(x=0)
+
+
+
 
