@@ -85,7 +85,12 @@ Note Starts : 2023-09-18
 
 
 * Events
-    - Event is a data structure, or object that QApplication created from the system interupt.
+    - Event is a user-interaction mechanism based on the singal mechanism. 
+        * In the beneath, the API catches the system interupt via registering itself to driver,
+            and manipulates it into QEvent object.
+            => This QEvent is conveyed to callback function in the conventionally defined slot.
+
+    - QEvent is a data structure, or object that QApplication created from the system interupt.
         ex) Event handler for mouse events (QMouseEvent)
         Handler : .mouseMoveEvent, .mousePressEvent, .mouseReleaseEvent, .mouseDoubleClickEvent
         Event : QMouseEvent
@@ -109,11 +114,33 @@ Note Starts : 2023-09-18
     - Layout forwarding (Widget Hierarchy)
         : The event is treated backward of Widget Hierarchy.(From childs to parent)
         => Upper widget of the hierarchy can be retreived with ".parent()".
-        
-        
+
+
+* Signal
+    - Signal is conventionally defined mechanism of communication(messaging) between UI components.
+        - QObject is the polymorph of all the signal(message).
+    - Pictorially)
+        * Signal Mechanism  : Statistical, or dynamical registration of calll back function
+
+        Transmitter    =>    "QAction"    =>    Transmitter
+        - slot for sig 1                        - Callback 1
+        - slot for sig 2                        - Callback 2
+        - slot for sig 3       <<==             - Callback 3
+        - slot for sig 4    Register Callback   - Callback 4
+        (API pre-defined,                       (Statically defined)
+        or customly defined)
+
+        => In API, signal is defined as wrapped C++ object (QtCore.pyqtBoundSignal)
+          * Signal generation, starting registered callbacks, is done from the catch & maipulation of os signal.
+
+        => You can define your own signals, but as the signal is, it is just listing of callback,
+            and defining the start point of the callback execution.
+
+
 * Action (QAction)
     - QAction("Name", QObject)
     - QAction is a class that provides customized user interfaces.
+    - Usually, the content of the signal with dynamical meaning is defined within QAction.
 
 
 
@@ -240,6 +267,9 @@ Note Starts : 2023-09-18
 
     - Can be converted to source code with pyuic6
         ex) pyuic6 mainwindow.ui -o MainWindow.py
+
+    - You can add "PlaceHolder" which is QWidget(or some abstract parent) that can be promoted to(downcasted to)
+     other custom widget that inherits QWidget.
 
 
 
