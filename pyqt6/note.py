@@ -14,7 +14,7 @@ Note Starts : 2023-09-18
 
     - It deals with
         * Event handling(doubleClick, ...)
-            : "exec()" method starts up the event handling loop.
+            : "exec()" method starts up the event handling loop.(GUI Thread)
         * argv(Default setting: topLevel, ...) or Style(palette,
          font....)
         * Management of Windows and modifcation of window setting.
