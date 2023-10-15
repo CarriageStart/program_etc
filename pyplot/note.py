@@ -3,60 +3,80 @@ Matplotlib.pyplot as plt
 seaborn as sns
 
 
-
 * Paper Concept
-    figure  : a Piece(page) of paper
+    * Analogue
+    figure(Canvas)  : a Piece(page) of paper.
         => Denoted with Figure Id.
         => Each figure has its own pop-up window.
-    subplot : a Section of page
+    subplot(Axes)   : a Section of page
         => Denoted as "ax" like "ax1, ax2, ax3, ax4, ..."
         => Also denoted with coordinates like (0,0), (0,1), (1,0), ...
-    Canvas  : the section where the plot is drawn
 
-1. Several Pages
-    - plt focuses on the one figure.
-    ex)
-        fig1 = plt.figure(1, figsize=(4,3))     # Make Figure 1. If doesn't exist, create one  1 == Figure Id
-        # Manipulate fig1 with plt
-        plt.plot(x, y, label="plot1")
-        plt.title("fig1")                       # Figure 1 title
+        *** Creation of Figure == Creation of Page ***
+        *** Creation of Axes   == Defining the layout of page ***
 
-        fig2 = plt.figure(2, figsize=(4,3))     # 2 == Figure Id
-        # Manipulate fig2 with plt
-        plt.plot(x, y, label="plot2")
-        plt.title("fig2")                       # Figure 2 title
-        plt.xlabel("x")                       # Figure 2 title
-        plt.xlabel("x")                       # Figure 2 title
+* Figure 
+    - Data structure for layouting the axes and canvas design.
+    - It defines cooridnate for layout and several methods that helps modifying layout data.
+    - It has several methods that modifying the canvas design data(how the canvas looks like).
+        
+* Axes
 
-        plt.legend()
+* plt(pyplot)
+    - All matplotlib core are built from C/C++. "pyplt" is interface between python and matplotlib.
 
-        plt.show()                              # Draw all figures
+    ex) Separate creation
+    fig = plt.figure(1, figsize=(4,3))
+    fig.add_axes((.1, .1, .8, .8), facecolor="#e1e1e1")
 
-
-2. Several Section in one page
-    - Auto-position consideration : 
-        fig, (ax1, ax2) = plt.subplots(1, 2, constrained_layout=True)    
-
-    ex)
-        fig, (ax1, ax2) = plt.subplots(1, 2)    # Divide the sections in the creation of a figure
-
-        ax1.plot(x, y, label="plot1")
-        ax1.set_title("subplot1")               # Set subplot title
-        ax1.set_xlabel("x_subplot1")            # Set subplot labels
-        ax1.set_ylabel("y_subplot1")            # Set subplot labels
-
-        ax2.plot(x, y, label="plot2")
-        ax2.set_title("subplot2")
-
-        plt.legend()
-        plt.show()                              # Draw all figure
+    ex) At the same time
+    fig, axes = plt.subplots(nrows=3, ncols=2)
 
 
-    ex)
-        fig, (ax1, ax2) = plt.subplots(1, 2)    # Divide the sections in the creation of a figure
-        sns.lineplot(x=year, y=python, label="plot1", ax=ax1)
-        sns.lineplot(x=year, y=python, label="plot2", ax=ax2)
-        plt.show()
+    1. Several Pages
+        - plt focuses on the one figure.
+        ex)
+            fig1 = plt.figure(1, figsize=(4,3))     # Make Figure 1. If doesn't exist, create one  1 == Figure Id
+            # Manipulate fig1 with plt
+            plt.plot(x, y, label="plot1")
+            plt.title("fig1")                       # Figure 1 title
+
+            fig2 = plt.figure(2, figsize=(4,3))     # 2 == Figure Id
+            # Manipulate fig2 with plt
+            plt.plot(x, y, label="plot2")
+            plt.title("fig2")                       # Figure 2 title
+            plt.xlabel("x")                       # Figure 2 title
+            plt.xlabel("x")                       # Figure 2 title
+
+            plt.legend()
+
+            plt.show()                              # Draw all figures
+
+
+    2. Several Section in one page
+        - Auto-position consideration : 
+            fig, (ax1, ax2) = plt.subplots(1, 2, constrained_layout=True)    
+
+        ex)
+            fig, (ax1, ax2) = plt.subplots(1, 2)    # Divide the sections in the creation of a figure
+
+            ax1.plot(x, y, label="plot1")
+            ax1.set_title("subplot1")               # Set subplot title
+            ax1.set_xlabel("x_subplot1")            # Set subplot labels
+            ax1.set_ylabel("y_subplot1")            # Set subplot labels
+
+            ax2.plot(x, y, label="plot2")
+            ax2.set_title("subplot2")
+
+            plt.legend()
+            plt.show()                              # Draw all figure
+
+
+        ex)
+            fig, (ax1, ax2) = plt.subplots(1, 2)    # Divide the sections in the creation of a figure
+            sns.lineplot(x=year, y=python, label="plot1", ax=ax1)
+            sns.lineplot(x=year, y=python, label="plot2", ax=ax2)
+            plt.show()
 
 
 
