@@ -1,0 +1,45 @@
+
+* Kinds of the Parrallel Operating 
+
+1. SISD (Single Instruction Single Data)
+
+2. SIMD (Single Instruction Multiple Data)
+    - Two Processes do the same instruction, but on the different data set.
+    - example GPU
+
+3. MISD (Multiple Instruction on Single Data)
+    - Multiple Processors do the different instruction for one data stream.
+
+4. MIMD (Multiple Instruction on Multiple Data)
+    - SPMD : Single Program Multiple Data
+        => The same program is run on the multiple processors(Via Flow Control).
+    - MPMD : Multiple PRogram Multiple Data
+        => Host Program make other processors run other programs(Nodes).
+
+
+* Classification via memory model.
+1. Shared Memory
+ - All processors accest the same memory with the global address
+ - All processors should not exist in one physical system.
+ - UMA(Uniform Memory Access)
+        => All processors can access the shared memory equally and fast.
+        => SMP(Symmetric Muli-Processing System)
+            - Main Memory <=> System Bus <=> CPU Cache <=> CPU
+                                         <=> CPU Cache <=> CPU
+                                         <=> CPU Cache <=> CPU
+                                         <=> CPU Cache <=> CPU
+                                                => Cache Coherence Problem
+ - Non-Uniform Memory Acces(NUMA)
+    - Several UMA is connected via system bus
+    - Some memory is accessed as 
+
+
+2. Distributed Memory
+ - All processor uses local independent memory and communicate only via network communication.
+
+
+ * Concurrency and Parallel
+ - Concurrency is about the program structure, where several flow can be executed independently.
+    => This could mean parallel execution, but it can be executed in the turn-in-turn manner by one processor.
+
+ - Parallel execution means execution by several processors.

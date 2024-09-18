@@ -1,0 +1,97 @@
+
+* Thread Independency
+- It is necessary that the concurent threads doesn't rely on the shared data that could be modified.
+    => Independent execution should be primary
+
+- Followings are the main problems to consider.
+
+1. Data Race
+ - Since two or more concurrent threads access the same memory, modification on data should be carefully done.
+
+ - The execution order is only determined by OS and "concurrency" is not "parallelism", therefore, 
+    we never know the time flow of each threads.
+
+    => We can't assure that one thread sees the modification of another thread, it might reference it before the 
+      modification.
+
+        *** This is not about "Cache Coherence", it is about the order of the execution. ***
+            => More fundamental reason is that process only operates on registers not the memory...
+              (Since it always copy data to registers and overwrite on memory...)
+
+
+2. Mutex(Mutual Exclusion)
+ - Code segment that can be shared and modified is identified as "Critical section".
+ - These code segment of the thread is listed on the OS scheduler as "Atomic Operations".
+    * Atomic Operation is executed as a single action and cannot be interrupted by other threads.
+    => For example, Loading a data to register, modifying it, and storing on memory are better to be in sequence.
+    * When executing atomic operations, OS looks up the log whether another thread has mutex(Lock).
+    
+ - Mutual exclusion technique is to let only one thread to possess the critical segment at a time.
+ - It is recommended to keep the mutex section atomic(short) as possible.
+
+    a. Reentrant Mutex (Recursive Mutex)
+    - Can be locked multiple times by the same thread, and should be unlock with the same times of locking.
+
+    b. Try Lock
+    - Check whether the mutex is locked or not.
+    - If locked, it return false. If not, it locks.
+
+    c. Shared Mutex (Reader-Writer Lock)
+    - Shared Read Lock : Multiple Threads can read at one.
+        => Acts like "Reenterant Mutex" with several threads
+    - Exclusive Write Lock : Only one thread can modify it at a time.
+        => Acts like Regular mutex.
+
+    - Multiple read but one writing
+      => If the mutex locked on read mode, then no one can write, but read.
+      => If on write mode, then no one can write neither read.
+
+    d. Conditional Variable (Monitor)
+        *** With mutex alone, busy waiting, where the thread keeps checking the status of mutex in vein, occurs. ***
+            => Since checking mutex status also costs the performance, signal mechanism between threads are needed.
+                ( Wake-up thread - Sleeping threads )
+
+        Monitor is "Sleeping" in the signal mechanism between threads.
+            => It provide the wake-up via mutex, but also provide disregart-until-wake-up flag to os.
+
+    - Queue of threads waiting for a certain condition and informed when the condition is met.
+        (condition ex : when mutex is unlocked...)
+        => The thread that unlock the mutex check the state adn decide whether inform other threads.
+    - By then, threads in queue don't stay in the busy-waiting state(spinning).
+
+    - Sequence
+        Check                   : Check whether the mutex is set my condition and lock the mutex if so.
+        Wait                    : If mutex doesn't fit in my condition, Condition variable stay in wait state.
+            => Instead of just 
+            *** Process Status :
+                D = uninterruptible sleep
+                R = running
+                S = sleeping
+                T = traced or stopped
+                Z = zombie
+
+        Signal(Notify, wake)    : Inform a thread(one condition variable)
+        Broadcast               : Inform all thread(several condition variable)
+    
+    - Usually implemented with shared queue or buffer(Mutex with condition variables + Buffer)
+
+
+ 3. DeadLock
+ - All concurrent processor and threads are unable to contiue executing to require resources.
+    => "Busy-waiting" is when the threads is waiting continuously checking the resources(mutex) available.
+            => Inefficient in power...
+ - How to solve it?
+    => Prioritize the mutex (Lock Ordering) 
+    => scoped_lock
+
+4. Starvation
+ - When threads are created, the assignment of the resource to threads are purely os-determined.
+ - Therefore, some threads might end up waiting for resources...
+
+5. LiveLock
+ - Multiple threads or processes are actively responding to each other to resolve conflict, but this prevents
+  making progress.
+ - Especially, when threads are designed to conditionally operate on another threads' state.
+
+
+

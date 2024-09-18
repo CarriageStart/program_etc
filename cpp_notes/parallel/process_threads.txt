@@ -1,0 +1,41 @@
+1. Process and thread
+ Thread     : independent path of execution
+ Process    : Environment class for thread
+    => Process is environment 
+
+                    Process
+            Shared Code / Shared Memory
+    Thread 1    Thread 2    Thread 3    Thread 4 ....
+    => Threads on the same process shares all enviroment except stack
+
+2. Communication
+ - Btw Processes (IPC) 
+        ex) Socket and pipes, Shared Memory, Remote Procedure call(RPC)
+ - Btw Threads
+     => Prices are high for Process Context change than threads'
+
+ 3. Context Switch
+ - It is the cost to switch to other threads.
+
+ 4. Scheduling of OS
+ - The order of the threads execution is determined by OS.
+ - Therefore, the concurrent program should not rely on the order of thread execution.
+
+
+ * Thread Structure
+ - Main Thread <=> Child Threads
+ - State of Thread:
+    1. New State : Thread object is created. OS prepare the memory and conveyed meta data is assigned   
+            => Like priority, parent information, code, memory address...
+    2. Runnable State   : State where the scheduler of OS can put it on the que.
+    3. Block State      : Don't-put-on-que flag until syscall change flag (Cannot be put on the que until flag is changed).
+    4. Terminated State : Completed the execution(Zombie state of which information can be used by parent)
+
+ * Deamon(Backgorund) Thread (Detached Thread)
+ - Child threads that doesn't prevent the process from terminating.
+    => The process is terminated as long as the main thread is terminated,
+            even though the deamon thread is still alive.
+ - When the thread is created, by default, it is not deamon.
+ - One example : Garbage collection thread.
+
+
