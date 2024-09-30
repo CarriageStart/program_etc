@@ -145,6 +145,30 @@
         return func(1, y)
     
 
+    * super() 
+        - When a parent method is called via super(), "self" is the child object.
+        - Therefore, if "self.child_method()" finds the method defined in child class.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
