@@ -24,7 +24,13 @@ class User:
     def fromDictionary(cls, dic):
         return cls(dic["email"], dic["password"])
 
+    # This also acts like class method, but class name is not inserted as a first parameter.
+    def test(x):
+        print(type(x))
+
 class StringUtils:
+    #  Static decorator is necessary to make method static, 
+    # since the object is implicitly inserted as a first parameter.
     @staticmethod
     def toCamelcase(text):
         words = iter(text.split("_"))

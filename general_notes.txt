@@ -1,0 +1,52 @@
+
+1. Objects
+
+- Design the simplest object structure so that it can have only one state.
+    => Not about the data should be immutable, but it can be always processed 
+        or processed-to without change.
+
+- Objects is not only about its data but also about how is it used.
+    => Always design with how it will be used
+
+- If the purpose of the data process is the same, commoning code is recommended.(Interface)
+    => If the commoning-code cannot be unified properly, the fault is usually on the object design.
+
+    * Definition of Object constraints how the interface is commoned.
+
+- The kind of the objects is specified how commoning code designed.
+
+- Naming Space(Class Structure) always should be about how the related methods are stored.
+
+ex)
+    class Diagram:
+
+        def __init__(self, width, height):
+            self.width = width
+            self.height = height
+            # The purpose of the 
+            self.diagram = DiagramFactory._create_rectangle(self.width,
+                    self.height, DiagramFactory.BLANK)
+
+        # Commoned code to process the one kinds of Objects.
+        def add(self, component):
+            for y, row in enumerate(component.rows):
+                for x, char in enumerate(row):
+                    self.diagram[y + component.y][x + component.x] = char
+
+
+        # How does it used.
+        def save(self, filenameOrFile):
+            file = (None if isinstance(filenameOrFile, str) else
+                    filenameOrFile)
+            try:
+                if file is None:
+                    file = open(filenameOrFile, "w", encoding="utf-8")
+                for row in self.diagram:
+                    print("".join(row), file=file)
+            finally:
+                if isinstance(filenameOrFile, str) and file is not None:
+                    file.close()
+
+
+
+
