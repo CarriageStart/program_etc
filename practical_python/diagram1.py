@@ -16,7 +16,7 @@ import tempfile
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == "-P": # For regression testing
-        create_diagram(DiagramFactory()).save(sys.stdout)
+        create_diagram(DiagramFactory()).save(sys.stdout)   # instance is put
         create_diagram(SvgDiagramFactory()).save(sys.stdout)
         return
     textFilename = os.path.join(tempfile.gettempdir(), "diagram.txt")
