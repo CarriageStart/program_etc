@@ -1,0 +1,24 @@
+* Run
+
+1. If Flask.run is used in script, (Not recommended)
+    - python3 app.py
+
+2. If not,
+    - python3 -m flask run
+    - flask run
+
+3. If the script is not named with "app.py"
+    - python3 -m flask --app your_app.py run
+
+4. With debugging Option
+    - python3 -m flask run --reload
+        => flask is reload the modified code and restart flask
+
+* Run Option
+
+1. IP addr
+    - flask run --host=0.0.0.0
+
+2. Port
+    - flask run --port=5000
+
