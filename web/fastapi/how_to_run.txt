@@ -1,0 +1,7 @@
+
+# uvicorn
+uvicorn main:app --reload
+- main  : The name of the script
+- app   : The object name of FastAPI in the main script
+- reload: If there is any change in the directory, reload the server
+
